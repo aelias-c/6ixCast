@@ -18,8 +18,8 @@ class ERA5Dataset(Dataset):
         self.yrf = yrf
 
     def __len__(self):
-        dayi = datetime.date(f'{self.yri}-01-01')
-        dayf = datetime.date(f'{self.yrf}-12-30')
+        dayi = datetime.date(self.yri, 1, 1)
+        dayf = datetime.date(self.yrf, 12, 30)
         return (dayf - dayi).days
 
     def __getitem__(self, date_index):
@@ -37,7 +37,7 @@ class ERA5Dataset(Dataset):
         var_dp1_list = []
         for file_var_name in self.var_dict.keys:
             var_name = self.var_dict.keys[file_var_name]
-            file_name = f'{var_name}_{year}.nc'
+            file_name = f'ECMWF.ERA5.daily.{var_name}.{year}.nc'
             file_path = os.path.join(self.era5_dir, file_name)
             # image = read_image(file_path)
             var = (
